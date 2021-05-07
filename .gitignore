@@ -3,3 +3,4 @@ env
 .DS_Store
 project/__pycache__
 *.pyc
+.vscode
