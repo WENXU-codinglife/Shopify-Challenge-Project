@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Flask Login Example
+</h1>
+<h2 class="subtitle">
+  Easy authentication and authorization in Flask.
+</h2>
+
+<form method="POST" action="/delete" enctype="multipart/form-data">
+    {% for IMAGE_URL in PRODUCT_IMAGES_URLS: %}
+    <div class="single-product-items">
+        <div class="product-item-image">
+            <a href="#"><img src={{ IMAGE_URL }} alt="Product"></a>
+            <!-- <div class="product-discount-tag">
+                <p>-60%</p>
+            </div> -->
+        </div>
+        <div class="product-item-content text-center mt-30">
+            <input type="checkbox" name={{ IMAGE_URL }}>{{ PRODUCT_NAME }}<br>
+            <span class="regular-price">${{ PRODUCT_PRICE }}</span>
+            <span class="discount-price">${{ PRODUCT_PRICE }}</span>
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="button is-block is-info is-large is-fullwidth">Delete</button>
+</form>
+{% endblock %}
