@@ -1,7 +1,7 @@
 # Simple Showcase
 
 This is a personal project inspired by Shopify intern challenge question.<br>
-Simple Showcase is an e-commerce-like web app helping users manage and demonstate products/images. Users can sign up an account and log in, then add new products by providing product information and uploading a number of images. The images can be labeled as 'private' so that they will be privately visible, otherwise, demonstrated publicly. <br>
+Simple Showcase is an e-commerce-like web app helping users manage and demonstrate products/images. Users can sign up an account and log in, then add new products by providing product information and uploading a number of images. The images can be labeled as 'private' so that they will be privately visible, otherwise, demonstrated publicly. <br>
 Simple Showcase is also deployed onto Heroku, click [here](https://shopify-challenge-proj.herokuapp.com/) to visit.
 
 ## Getting Started
