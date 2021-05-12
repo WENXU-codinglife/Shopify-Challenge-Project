@@ -11,13 +11,14 @@ mana = Blueprint('mana', __name__)
 
 @mana.route('/add')
 @login_required
-def add():
+def add():  # redirect to 'add' page
     return render_template('add.html')
 
 
 @mana.route('/add', methods=['POST'])
 @login_required
-def add_post():
+def add_post():  # submit product information and images
+    # retrieve information
     product_name = request.form.get('product_name')
     quantity = request.form.get('quantity')
     if(quantity < 1):
@@ -36,6 +37,7 @@ def add_post():
         flash('Product name already exists.')
         return redirect(url_for('mana.add'))
 
+    # retrieve and handle images
     if(request.files):
         f = request.files.getlist('image')
         i = 1
@@ -69,8 +71,8 @@ def add_post():
                 db.session.commit()
                 i = i + 1
     else:
-        flash('Please upload an image!')
-        return redirect(url_for('mana.add'))
+        flash('Please upload an image at least!')
+        return redirect(url_for('mana.add'))  # refresh 'add' page
 
     # create a new product with the form data.
     new_product = Product(userId=current_user.id, name=product_name,
@@ -80,7 +82,7 @@ def add_post():
     db.session.add(new_product)
     db.session.commit()
 
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.index'))  # redirect to 'main' page
 
 
 @mana.route('/delete')
@@ -137,6 +139,7 @@ def delete_post():
     return redirect(url_for('main.index'))
 
 
+# a function used to validate submitted image format for secure uploading purpose
 def validate_image(stream):
     header = stream.read(512)
     stream.seek(0)

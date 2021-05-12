@@ -1,3 +1,9 @@
+"""
+This is a file residing outside 'project' directory.
+It is essetially not necessary when starting the app by 'flask run',
+but used to ensure the app to run successfully on Heroku.
+"""
+
 import project
 from project import *
 

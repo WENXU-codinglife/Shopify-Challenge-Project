@@ -8,6 +8,11 @@
     <title>Simple Showcase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
     <style>
+        .searchbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .single-product-items {
             float: left;
             width: 33%;
@@ -31,6 +36,8 @@
             transform: scale(1.01);
             opacity: 0.9;
         }
+
+
     </style>
 </head>
 
@@ -41,6 +48,10 @@
                 <div class="container">
                     <div id="navbarMenuHeroA" class="navbar-menu">
                         <div class="navbar-end">
+                            <div class="searchbar">
+                                <input type="text" class="searchbox" placeholder="Search...">
+                                <button type="submit" class="searchbutton">search</button>
+                            </div>
                             <a href="{{ url_for('main.index') }}" class="navbar-item">
                                 Home
                             </a>
