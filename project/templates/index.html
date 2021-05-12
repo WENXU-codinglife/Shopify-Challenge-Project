@@ -8,9 +8,12 @@
   A demonstrating platform for e-commercial users.
 </h2>
 
-{% for PRODUCT_URL in PRODUCT_IMAGES_URLS: %}
+{% for PRODUCT_URL in PRODUCT_IMAGES_URLS: %} 
 <div class="single-product-items">
     <div class="product-item-image">
+        {% if 'private' in PRODUCT_URL:%}
+          <div class="private-badge">PRIVATE</div>
+        {% endif%}
         <a href="#"><img src={{ PRODUCT_URL }} alt="Product"></a>
         <!-- <div class="product-discount-tag">
             <p>-60%</p>
