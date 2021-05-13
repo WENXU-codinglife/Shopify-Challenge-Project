@@ -27,6 +27,7 @@ class Product(db.Model):
 class Image(db.Model):
     __tablename__ = 'image'
     id = db.Column(db.Integer, primary_key=True)
+    accessibility = db.Column(db.Boolean, default=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     productId = db.Column(db.Integer, db.ForeignKey('product.id'))
     url = db.Column(db.String(1000), nullable=False)

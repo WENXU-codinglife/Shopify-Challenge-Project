@@ -61,7 +61,7 @@ def signup_post():
     new_user_id = 1
     if(row[0]):
         new_user_id = row[0] + 1
-    img_path = os.path.join(auth.root_path, 'static/img/')
+    img_path = os.path.join(auth.root_path, 'static/product/')
     os.makedirs(img_path+str(new_user_id)+'/public')
     os.makedirs(img_path+str(new_user_id)+'/private')
 

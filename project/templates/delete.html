@@ -12,6 +12,9 @@
     {% for IMAGE_URL in PRODUCT_IMAGES_URLS: %}
     <div class="single-product-items">
         <div class="product-item-image">
+            {% if 'private' in PRODUCT_URL:%}
+              <div class="private-badge">PRIVATE</div>
+            {% endif%}
             <a href="#"><img src={{ IMAGE_URL }} alt="Product"></a>
             <!-- <div class="product-discount-tag">
                 <p>-60%</p>

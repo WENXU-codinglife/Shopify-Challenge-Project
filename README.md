@@ -2,7 +2,7 @@
 
 This is a personal project inspired by Shopify intern challenge question.<br>
 Simple Showcase is an e-commerce-like web app helping users manage and demonstrate products/images. Users can sign up an account and log in, then add new products by providing product information and uploading a number of images. The images can be labeled as 'private' so that they will be privately visible, otherwise, demonstrated publicly. <br>
-Simple Showcase is also deployed onto Heroku, click [here](https://shopify-challenge-proj.herokuapp.com/) to visit.
+<!-- Simple Showcase is also deployed onto Heroku, click [here](https://shopify-challenge-proj.herokuapp.com/) to visit. -->
 
 ## Getting Started
 
@@ -113,3 +113,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 - Search function
 - Business features such like: PURCHASE, DISCOUNT, MONEY HANDLING
+- Perform deployment onto Heroku

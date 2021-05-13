@@ -4,7 +4,6 @@ It is essetially not necessary when starting the app by 'flask run',
 but used to ensure the app to run successfully on Heroku.
 """
 
-import project
 from project import *
 
 app = create_app()

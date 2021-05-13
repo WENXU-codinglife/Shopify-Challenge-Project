@@ -37,7 +37,7 @@ def add_post():  # submit product information and images
         flash('Product name already exists.')
         return redirect(url_for('mana.add'))
 
-    # retrieve and handle images
+    # handle product information and images
     if(request.files):
         f = request.files.getlist('image')
         i = 1
@@ -52,9 +52,11 @@ def add_post():  # submit product information and images
                     return redirect(url_for('mana.add'))
                 # save the uploaded images to the directory
                 # the images will be saved with automatically generated names rather than their filenames
-                UPLOADS_PATH = os.path.join(mana.root_path, 'static/img/')
+                UPLOADS_PATH = os.path.join(mana.root_path, 'static/product/')
                 privacy = request.form.get('image_checkbox_'+str(i))
+                accessibility = True
                 if(privacy):
+                    accessibility = False
                     image.save(os.path.join(UPLOADS_PATH, str(
                         current_user.id)+'/private/'+product_name+'_'+str(i)+'.jpg'))
                     url = 'private/'+product_name+'_'+str(i)+'.jpg'
@@ -63,7 +65,7 @@ def add_post():  # submit product information and images
                         current_user.id)+'/public/'+product_name+'_'+str(i)+'.jpg'))
                     url = 'public/'+product_name+'_'+str(i)+'.jpg'
                     # f.save(secure_filename(f.filename))
-                new_img = Image(userId=current_user.id, productId=1, url=url)
+                new_img = Image(userId=current_user.id, productId=1, url=url, accessibility=accessibility)
                 if(latest_product):
                     new_img.productId = latest_product.id + 1
                 # add the new images to the database
@@ -82,13 +84,13 @@ def add_post():  # submit product information and images
     db.session.add(new_product)
     db.session.commit()
 
-    return redirect(url_for('main.index'))  # redirect to 'main' page
+    return redirect(url_for('main.index'))  # redirect to home page
 
 
 @mana.route('/delete')
 @login_required
-def delete():
-    PRODUCT_IMAGES_URLS = []
+def delete(): # deletion page, list all images that the current user has
+    product_images_urls = []
     product_name = ''
     product_price = 0
     images = Image.query.filter_by(userId=current_user.id).all()
@@ -98,37 +100,37 @@ def delete():
             product_name = product.name
             product_price = product.price
             img_url = image.url
-            PRODUCT_IMAGES_URLS.append(
-                'static/img/' + str(product.userId) + '/' + img_url)
-    if not PRODUCT_IMAGES_URLS:
+            product_images_urls.append(
+                'static/product/' + str(product.userId) + '/' + img_url)
+    if not product_images_urls: # has no image, redirect to home page
         return redirect(url_for('main.index'))
-    return render_template('delete.html', PRODUCT_IMAGES_URLS=PRODUCT_IMAGES_URLS, PRODUCT_NAME=product_name, PRODUCT_PRICE=product_price)
+    return render_template('delete.html', PRODUCT_IMAGES_URLS=product_images_urls, PRODUCT_NAME=product_name, PRODUCT_PRICE=product_price)
 
 
 @mana.route('/delete', methods=['POST'])
 @login_required
-def delete_post():
-    PRODUCT_IMAGES_URLS = []
+def delete_post(): # handle image deletion request
+    product_images_urls = []
     images = Image.query.filter_by(userId=current_user.id).all()
     for image in images:
         product = Product.query.filter_by(id=image.productId).first()
         if(product):
             img_url = image.url
-            PRODUCT_IMAGES_URLS.append(
-                'static/img/' + str(product.userId) + '/' + img_url)
-    for url in PRODUCT_IMAGES_URLS:
+            product_images_urls.append(
+                'static/product/' + str(product.userId) + '/' + img_url)
+    for url in product_images_urls:
         if(request.form.get(url)):
-            path = url.replace("static/img/" + str(current_user.id) + '/', "")
+            path = url.replace("static/product/" + str(current_user.id) + '/', "")
             image_to_be_deleted = Image.query.filter_by(url=path).first()
             DELETION_PATH = os.path.join(mana.root_path, url)
-            try:
-                os.remove(DELETION_PATH)
+            try: # delete the image from server
+                os.remove(DELETION_PATH) 
             except:
                 print('error occurred when deleting the image ' +
                       url + ' from server!')
             product_image_belong_to = Product.query.filter_by(
                 id=image_to_be_deleted.productId).first()
-            if(product_image_belong_to.image == 1):
+            if(product_image_belong_to.image == 1): # delete the product that has no images left
                 db.session.delete(product_image_belong_to)
             else:
                 product_image_belong_to.image = product_image_belong_to.image - 1

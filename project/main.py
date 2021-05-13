@@ -21,10 +21,10 @@ def index():  # main page, displaying all public images for visitors and all pub
             img_url = image.url
             if "public" in img_url:
                 product_image_urls.append(
-                    'static/img/' + str(product.userId) + '/' + img_url)
+                    'static/product/' + str(product.userId) + '/' + img_url)
             elif current_user.is_authenticated and product.userId == current_user.id:
                 product_image_urls.append(
-                    'static/img/' + str(product.userId) + '/' + img_url)
+                    'static/product/' + str(product.userId) + '/' + img_url)
 
     return render_template('index.html', PRODUCT_IMAGES_URLS=product_image_urls, PRODUCT_NAME=product_name, PRODUCT_PRICE=product_price)
 
